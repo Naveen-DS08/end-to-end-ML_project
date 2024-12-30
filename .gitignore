@@ -2,3 +2,5 @@ myenv/
 .env
 *.egg-info/
 *.egg
+research/
+logs/ 
