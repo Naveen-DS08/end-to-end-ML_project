@@ -3,4 +3,6 @@ myenv/
 *.egg-info/
 *.egg
 research/
-logs/ 
+logs/
+artifacts/
+ 
