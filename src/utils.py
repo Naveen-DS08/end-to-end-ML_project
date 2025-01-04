@@ -7,6 +7,7 @@ import pickle
 import json
 from src.exception import CustomException 
 from sklearn.metrics import r2_score, root_mean_squared_error
+from sklearn.model_selection import RandomizedSearchCV
 
 def save_object(file_path:Path, obj):
     try:
@@ -20,12 +21,20 @@ def save_object(file_path:Path, obj):
         raise CustomException(e, sys)
     
 def evaluate_models(X_train, y_train,
-                    X_test, y_test, models:dict):
+                    X_test, y_test, 
+                    models:dict, params, cv=3, verbose=1, n_jobs=-1):
     try:
         report = {}
         for i in range(len(list(models))):
              model = list(models.values())[i]
+             param = params[list(models.keys())[i]]
+            #  logging.info("Hyper Parameter Tunning Initiated")
 
+             search_cv = RandomizedSearchCV(estimator=model, param_distributions=param, cv=cv,
+                                            n_jobs=n_jobs, verbose=verbose, scoring="r2" )
+             search_cv.fit(X_train, y_train)
+
+             model.set_params(**search_cv.best_params_)
              model.fit(X_train, y_train)
 
              y_train_pred = model.predict(X_train)
