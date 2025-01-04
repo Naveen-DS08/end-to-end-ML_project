@@ -5,4 +5,5 @@ myenv/
 research/
 logs/
 artifacts/
- 
+catboost_info/
+
