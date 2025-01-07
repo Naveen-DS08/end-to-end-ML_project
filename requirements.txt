@@ -5,4 +5,5 @@ seaborn
 scikit-learn==1.5.2
 catboost
 xgboost
+Flask
 # -e .
